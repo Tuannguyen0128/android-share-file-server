@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Server - Directory Listing</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+    <div id="mainContainer" class="container">
+        <div id="sidePanel" class="side-panel">
+            <div id="toolBar" class="tool-bar">
+                
+                <button title="Tạo thư mục" id="newFolderButton" class="side-button"><i class="fa-solid fa-folder-plus"></i></button>
+                <button title="Tải lên" id="uploadButton" class="side-button"><i class="fa-solid fa-upload"></i></button>
+                <button title="Chọn tất cả" id="selectAllButton" class="side-button"><i class="fa-solid fa-check-double"></i></button>
+                <button title="Xem lưới" id="gridViewButton" class="side-button"><i class="fa-solid fa-table-cells"></i></button>
+                <button title="Dark mode" id="darkModeButton" class="side-button"><i class="fa-solid fa-moon"></i></button>
+            </div>
+            <button id="toggleToolBarButton" onclick="toggleToolBar()"  title="More action" class="side-button "><i class="fa-solid fa-plus"></i></button>
+            <input type="file" id="fileInput" style="display:none;" multiple>
+        </div>
+        <div class="header">
+            <h3>📁 File Server</h1>
+                <p>Browse and access your stored files</p>
+        </div>
+
+        <div class="stats">
+            <div class="stat-item">
+                <div id="totalNumberOfFile" class="stat-number">0</div>
+                <div class="stat-label">Totals</div>
+            </div>
+            <div class="stat-item">
+                <div id="numberOfDir" class="stat-number">0</div>
+                <div class="stat-label">Directories</div>
+            </div>
+            <div class="stat-item">
+                <div id="numberOfFile" class="stat-number">0</div>
+                <div class="stat-label">Files</div>
+            </div>
+        </div>
+        
+        <div id="pagination" style="margin: 10px; display: flex; justify-content: center">
+        </div>
+        
+        <div id="router">
+        </div>
+
+        <div id="dropTable">
+        <div id="noFileFound" class="no-files">
+            <div class="icon">📂</div>
+            <h3>No files found</h3>
+            <p>Upload some files to get started!</p>
+        </div>
+
+        <table id="filesTable" class="file-table">
+            <thead>
+                <tr>
+                    <th>Type</th>
+                    <th>Name</th>
+                    <th>Format</th>
+                    <th>Size</th>
+                    <th>Modified</th>
+                </tr>
+            </thead>
+            <tbody id="fileTableBody">
+
+            </tbody>
+        </table>
+
+
+        </div>
+        <div class="footer">
+            <p>HTTP File Server • Running on port 8080</p>
+        </div>
+    </div>
+
+     <div id="uploadProgressContainer">
+        <div class="progress-header" onclick="toggleProgressTable()">
+            <h4 id="headerTitle">Tiến độ Upload</h4>
+            <button class="toggle-btn" id="toggleBtn">−</button>
+        </div>
+        <table id="progressTable">
+            <thead>
+                <tr>
+                    <th>STT</th>
+                    <th>Tên File</th>
+                    <th>Tiến độ</th>
+                </tr>
+            </thead>
+            <tbody id="progressTableBody">
+            </tbody>
+        </table>
+    </div>
+
+
+    <!-- File Modal -->
+    <div id="fileModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title">
+                    <span id="modalIcon"></span>
+                    <span id="modalTitle"></span>
+                </div>
+                <button class="close-btn" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="modal-body" id="modalBody">
+                <div class="loading">
+                    <div class="spinner"></div>
+                    <p>Loading file...</p>
+                </div>
+            </div>
+            <div class="file-info" id="fileInfo">
+                <div class="info-item">
+                    <span class="info-label">Type:</span>
+                    <span id="fileType"></span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Size:</span>
+                    <span id="fileSize"></span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Modified:</span>
+                    <span id="fileDate"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="create-folder-modal" id="createFolderModal">
+            <div class="create-folder-header">
+                <h4 id="headerTitle">Create new folder</h4>
+            </div>
+            <div class="create-folder-body">
+                <div id="create-folder-input">
+                    <input type="text" placeholder="Enter folder name" id="folderNameInput">
+                <div class="create-folder-button">
+                    <button id="createFolderCancel">Cancel</button>
+                    <button id="createFolderSubmit">Create</button>
+                </div>
+                </div>
+
+                <div id="success-noti" style="display: none;">
+                    <div class="success-checkmark show"></div>
+                    <p style="text-align: center; color: #4CAF50; font-weight: 600; margin-top: 10px;">
+                        Folder created successfully!
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="/js/script.js"></script>
+</body>
+
+</html>
